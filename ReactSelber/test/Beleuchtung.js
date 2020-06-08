@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
 import { Button, Row, Container, Col} from 'react-bootstrap';
+import { SliderPicker } from 'react-color';
 
 export class Beleuchtung extends Component {
     render() {
@@ -8,16 +9,17 @@ export class Beleuchtung extends Component {
     
           <View> 
           <Container fluid>
+
           <Row>
            <Col><Text style={styles.title}>Beleuchtung</Text></Col>
           </Row>
+
            <Row>
-            <Button variant="primary">Primary</Button>
-            <Button variant="outline-primary">Primary</Button>
-            <Button variant="outline-danger">Danger</Button>
-            <Button variant="outline-success">Success</Button>
             <Button variant="outline-success">Success</Button>
           </Row>
+          
+            <SliderPicker style ={styles.container}/>
+          
           </Container> 
           </View>
         );
@@ -41,6 +43,4 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: "bold"
     }
-  
-  
   });
