@@ -1,31 +1,74 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { Button, Row, Container, Col} from 'react-bootstrap';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export class Home extends Component {
+
+  state = {
+    fillTemp: 50,
+    fillHumdity: 20,
+  };
+
+  syncronice = (state) => {
+    // TODO: mqtt verbindung
+    console.log("get from mqtt")
+  }
+
     render() {
         return (
     
-          <View> 
+          <View style={styles.container}> 
             <Container fluid>
             <Row>
             <Col>
              <Text style={styles.title}>Temperatur</Text>
 
-              {/* TODO: hier diagramm impl. */}
-
+              <AnimatedCircularProgress
+                size={200}
+                width={15}
+                fill={this.state.fillTemp}
+                tintColor="#00e0ff"
+                backgroundColor="#3d5875">
+                {
+                  (fill) => (
+                    <Text style={styles.title}>
+                    { this.state.fillTemp }
+                  </Text>
+                  )
+                }
+              </AnimatedCircularProgress>
             </Col>
-           
+
+            </Row>
+
+            <Row>
              <Col>
            
-              <Text style={styles.title}>temp</Text>
+              <Text style={styles.title}>Humidity</Text>
            
-              {/* TODO: hier diagramm impl. */}
+              <AnimatedCircularProgress
+                size={200}
+                width={15}
+                fill={this.state.fillHumdity}
+                tintColor="#00e0ff"
+                backgroundColor="#3d5875">
+                {
+                  (fill) => (
+                    <Text style={styles.title}>
+                    { this.state.fillHumdity }
+                  </Text>
+                  )
+                }
+              </AnimatedCircularProgress>
 
              </Col>
             </Row>
-          
-           <Button variant="primary">SYNCRONICE</Button>
+
+            <Row>
+              <Button variant="primary"
+              onClick={ this.syncronice }>SYNCRONICE</Button>
+            </Row>
 
            </Container> 
           </View>
@@ -40,6 +83,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      marginLeft: "auto",
+      marginRight: "auto",
     },
   
     title: {
@@ -54,9 +99,4 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       justifyContent: 'center',
     },
-
-    button: {
-      fontWeight: "bold",
-      justifyContent: 'center',
-    }
   });
