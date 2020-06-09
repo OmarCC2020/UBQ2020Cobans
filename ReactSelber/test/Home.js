@@ -7,17 +7,27 @@ export class Home extends Component {
         return (
     
           <View> 
-          <Container fluid>
-          <Row>
-           <Col><Text style={styles.title}>Die Cobans</Text></Col>
-          </Row>
-           <Row>
-            <Button variant="primary">Primary</Button>
-            <Button variant="outline-primary">Primary</Button>
-            <Button variant="outline-danger">Danger</Button>
-            <Button variant="outline-success">Success</Button>
-          </Row>
-          </Container> 
+            <Container fluid>
+            <Row>
+            <Col>
+             <Text style={styles.title}>Temperatur</Text>
+
+              {/* TODO: hier diagramm impl. */}
+
+            </Col>
+           
+             <Col>
+           
+              <Text style={styles.title}>temp</Text>
+           
+              {/* TODO: hier diagramm impl. */}
+
+             </Col>
+            </Row>
+          
+           <Button variant="primary">SYNCRONICE</Button>
+
+           </Container> 
           </View>
         );
       }
@@ -43,7 +53,10 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: "bold",
       justifyContent: 'center',
+    },
+
+    button: {
+      fontWeight: "bold",
+      justifyContent: 'center',
     }
-  
-  
   });
