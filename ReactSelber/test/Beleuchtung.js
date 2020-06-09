@@ -1,25 +1,39 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button, Row, Container, Col} from 'react-bootstrap';
 import { SliderPicker } from 'react-color';
 
 export class Beleuchtung extends Component {
+  
+  state = {
+    background: '#fff',
+  };  
+
+  handleChangeComplete = (color) => {
+    this.setState({ background: color.hex });
+    console.log("Selected Color" + { background: color.hex } )
+  };
+
+  callColor = (color) => {
+    // TODO: mqtt verbindung zur LED lampe color muss von hex auf RGB 
+    console.log("Selected Color" + {background: color.hex } )
+  }
+
     render() {
         return (
     
           <View> 
           <Container fluid>
 
-          <Row>
-           <Col><Text style={styles.title}>Beleuchtung</Text></Col>
-          </Row>
-
-           <Row>
-            <Button variant="outline-success">Success</Button>
-          </Row>
-          
-            <SliderPicker style ={styles.container}/>
-          
+            <Row>
+              <Text style={styles.title}>Beleuchtung</Text>
+            </Row>
+         
+            <SliderPicker style ={styles.container}
+              color={ this.state.background }
+              onChangeComplete={ this.handleChangeComplete && this.callColor }
+              onPress={this.callColor}
+            />
           </Container> 
           </View>
         );
@@ -36,11 +50,20 @@ const styles = StyleSheet.create({
     },
   
     title: {
-      marginTop: 16,
-      paddingVertical: 8,
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: 12,
+      paddingVertical: 10,
+      alignItems: 'center',
       color: "#20232a",
       textAlign: "center",
       fontSize: 30,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      justifyContent: 'center',
+    },
+
+    button: {
+      padding: 50,
+      textAlign: 50
     }
   });

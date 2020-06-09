@@ -33,12 +33,16 @@ const styles = StyleSheet.create({
     },
   
     title: {
-      marginTop: 16,
-      paddingVertical: 8,
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: 12,
+      paddingVertical: 10,
+      alignItems: 'center',
       color: "#20232a",
       textAlign: "center",
       fontSize: 30,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      justifyContent: 'center',
     }
   
   

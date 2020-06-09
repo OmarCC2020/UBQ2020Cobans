@@ -4,7 +4,7 @@ import {Navbar, Nav} from 'react-bootstrap';
 export class Navigation extends Component{
     render(){
         return(
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="dark" expand="dark" variant="dark">
             <Navbar.Brand href="/Home">SmartHome</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
