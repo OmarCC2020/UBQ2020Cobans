@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, Row, Container, Col} from 'react-bootstrap';
 import { SliderPicker } from 'react-color';
 
+import reactApp from "./App";
+
 export class Beleuchtung extends Component {
   
   state = {
@@ -11,17 +13,19 @@ export class Beleuchtung extends Component {
 
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
-    console.log("Selected Color" + { background: color.hex } )
+    //console.log("Selected Color" + { background: color.hex } )
   };
 
   callColor = (color) => {
     // TODO: mqtt verbindung zur LED lampe color muss von hex auf RGB 
-    console.log("Selected Color" + {background: color.hex } )
+    this.setState({ background: color.hex });
+    //console.log("Selected Color" + {background: color.hex } )
+    console.log(this.state.background);
+    reactApp.prototype.setLedColor(this.state.background);
   }
 
     render() {
-        return (
-    
+        return (    
           <View> 
           <Container fluid>
 

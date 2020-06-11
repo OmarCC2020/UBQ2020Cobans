@@ -1,102 +1,93 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
-import { Button, Row, Container, Col} from 'react-bootstrap';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Button, Row, Container, Col } from "react-bootstrap";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
+import reactApp from "./App";
 
 export class Home extends Component {
-
-  state = {
-    fillTemp: 50,
-    fillHumdity: 20,
-  };
-
-  syncronice = (state) => {
-    // TODO: mqtt verbindung
-    console.log("get from mqtt")
+  constructor(props) {
+    super(props);
+    this.state = {
+      fillTemp: 50,
+      fillHumidity: 20,
+    };
   }
 
-    render() {
-        return (
-    
-          <View style={styles.container}> 
-            <Container fluid>
-            <Row>
+  synchronize = (state) => {
+    // TODO: mqtt verbindung
+    console.log("get from mqtt");
+    console.log(reactApp.prototype.getHumidity());
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Container fluid>
+          <Row>
             <Col>
-             <Text style={styles.title}>Temperatur</Text>
+              <Text style={styles.title}>Temperatur</Text>
 
               <AnimatedCircularProgress
                 size={200}
                 width={15}
-                fill={this.state.fillTemp}
+                fill={reactApp.prototype.getTemperature()}
                 tintColor="#00e0ff"
                 backgroundColor="#3d5875">
-                {
-                  (fill) => (
-                    <Text style={styles.title}>
-                    { this.state.fillTemp }
-                  </Text>
-                  )
-                }
+                {(fill) => (
+                  <Text style={styles.title}>{reactApp.prototype.getTemperature()}</Text>
+                )}
               </AnimatedCircularProgress>
             </Col>
+          </Row>
 
-            </Row>
-
-            <Row>
-             <Col>
-           
+          <Row>
+            <Col>
               <Text style={styles.title}>Humidity</Text>
-           
+
               <AnimatedCircularProgress
                 size={200}
                 width={15}
-                fill={this.state.fillHumdity}
+                fill={reactApp.prototype.getHumidity()}
                 tintColor="#00e0ff"
                 backgroundColor="#3d5875">
-                {
-                  (fill) => (
-                    <Text style={styles.title}>
-                    { this.state.fillHumdity }
-                  </Text>
-                  )
-                }
+                {(fill) => (
+                  <Text style={styles.title}>{reactApp.prototype.getHumidity()} %</Text>
+                )}
               </AnimatedCircularProgress>
+            </Col>
+          </Row>
 
-             </Col>
-            </Row>
-
-            <Row>
-              <Button variant="primary"
-              onClick={ this.syncronice }>SYNCRONICE</Button>
-            </Row>
-
-           </Container> 
-          </View>
-        );
-      }
+          <Row>
+            <Button variant="primary" onClick={this.synchronize}>SYNCRONICE</Button>
+          </Row>
+        </Container>
+      </View>
+    );
+  }
 }
 
-//Styles für aussehen
+//StyleSheet
+//TODO: sachen mit flexbox/bootstrap zentrieren und responsive machen
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  
-    title: {
-      marginLeft: "auto",
-      marginRight: "auto",
-      marginTop: 12,
-      paddingVertical: 10,
-      alignItems: 'center',
-      color: "#20232a",
-      textAlign: "center",
-      fontSize: 30,
-      fontWeight: "bold",
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+
+  title: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 12,
+    paddingVertical: 10,
+    alignItems: "center",
+    color: "#20232a",
+    textAlign: "center",
+    fontSize: 30,
+    fontWeight: "bold",
+    justifyContent: "center",
+  },
+});
