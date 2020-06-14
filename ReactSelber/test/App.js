@@ -5,15 +5,15 @@ import { Home }   from "./Home";
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 import mqtt from "mqtt";
 
 var client; //mqtt client object
 var mqttBrokerIP="mqtt://34.107.25.251";
 var portNum = 1888;
 
-
-
 import GLOBAL from './globalData.js'
+
 
 export default class reactApp extends Component{
   constructor() {

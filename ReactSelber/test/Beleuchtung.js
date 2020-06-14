@@ -32,39 +32,30 @@ export class Beleuchtung extends Component {
 
     render() {
         return (    
-          <View style={styles.container}> 
-             <Container fluid>
+          <View>            
 
-              <Row>    
-                <Text style={styles.title}>Beleuchtung</Text> 
-              </Row>        
+            <View style={styles.container}>
+              <Text style={styles.title}>Wohnzimmer</Text> 
 
-              <Row>
               <ToggleButton
-                    type="checkbox"
-                    variant="secondary"
-                    checked={this.state.checked}
-                    value="1"
-                    onChange={(e) => this.setChecked(e.currentTarget.checked)}                            
-                    >
-                    Checked
-                  </ToggleButton>  
-              </Row>
+                type="checkbox"
+                variant="secondary"
+                checked={this.state.checked}
+                value="1"
+                onChange={(e) => this.setChecked(e.currentTarget.checked)}                            
+                >
+                Lampe
+              </ToggleButton>  
+            </View>    
 
-                
-                  
-                        
-                  
-
-                           
-                <SliderPicker 
-                  color={ this.state.background }
-                  onChangeComplete={ this.handleChangeComplete && this.callColor }
-                  onPress={this.callColor}
-                />
-              
+            <View style={styles.slider}>
+              <SliderPicker 
+                color={ this.state.background }
+                onChangeComplete={ this.handleChangeComplete && this.callColor }
+                onPress={this.callColor}
+              />
+            </View>
                  
-            </Container>
           </View>
         );
       }
@@ -74,10 +65,18 @@ export class Beleuchtung extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      flexDirection: "row",
+      flexWrap: "wrap",
       backgroundColor: '#fffff',
-      alignItems: 'center',
+      alignItems: 'baseline',
       alignContent: 'center',
       justifyContent: 'center',
+      padding: 10,
+    },
+
+    slider:{
+      flex: 1,
+      margin:10,
       padding: 10,
     },
   
