@@ -25,6 +25,7 @@ export default class reactApp extends Component{
     };
     GLOBAL.temperature=this;
     GLOBAL.humidity=this;
+    GLOBAL.heatindex=this;
     GLOBAL.gauge=this;
 
     this.getHumidity=this.getHumidity.bind(this);
@@ -41,6 +42,14 @@ export default class reactApp extends Component{
   getTemperature(){    
     if(GLOBAL.temperature.state.temperature!==undefined){
       return parseFloat(GLOBAL.temperature.state.temperature);
+    }else{
+      return 42;
+    }
+  }
+
+  getHeatindex(){    
+    if(GLOBAL.heatindex.state.heatindex!==undefined){
+      return parseFloat(GLOBAL.heatindex.state.heatindex);
     }else{
       return 42;
     }
@@ -84,10 +93,7 @@ export default class reactApp extends Component{
         client.subscribe("dht22/temperature" , function(err){if(err){console.log(err)}});
         client.subscribe("dht22/humidity" ,function(err){if(err){console.log(err)}});
         client.subscribe("dht22/heatindex" , function(err){if(err){console.log(err)}});
-
-
-        
-
+       
       });
 
 
@@ -98,15 +104,18 @@ export default class reactApp extends Component{
         switch(topic){
           case "dht22/temperature":
             GLOBAL.temperature.setState({temperature:message.toString()}); 
-
             break;
+
           case "dht22/humidity":
             GLOBAL.humidity.setState({humidity:message.toString()}); 
+            break;
+
+          case "dht22/heatindex":
+            GLOBAL.humidity.setState({heatindex:message.toString()}); 
             break;
         }
 
       });
-
       
       
   }

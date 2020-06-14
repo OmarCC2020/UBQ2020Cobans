@@ -22,45 +22,58 @@ export class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Container fluid>
-          <Row>
-            <Col>
-              <Text style={styles.title}>Temperatur</Text>
 
-              <AnimatedCircularProgress
-                size={200}
-                width={15}
-                fill={reactApp.prototype.getTemperature()}
-                tintColor="#00e0ff"
-                backgroundColor="#3d5875">
-                {(fill) => (
-                  <Text style={styles.title}>{reactApp.prototype.getTemperature()}</Text>
-                )}
-              </AnimatedCircularProgress>
-            </Col>
-          </Row>
+        <View style={styles.gauge}>
+          <Text style={styles.title}>Temperatur</Text>   
 
-          <Row>
-            <Col>
-              <Text style={styles.title}>Humidity</Text>
+          <AnimatedCircularProgress
+            size={250}
+            width={20}
+            fill={reactApp.prototype.getTemperature()}
+            tintColor="#ff0000"
+            backgroundColor="#343A40">
+            {(fill) => (
+              <Text style={styles.title}>{reactApp.prototype.getTemperature()} °C</Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
+        
+            
+        <View style={styles.gauge}>
+          <Text style={styles.title}>Luftfeuchtigkeit</Text>
+          
+          <AnimatedCircularProgress
+            size={250}
+            width={20}
+            fill={reactApp.prototype.getHumidity()}
+            tintColor="#00e0ff"
+            backgroundColor="#343A40">
+            {(fill) => (
+              <Text style={styles.title}>{reactApp.prototype.getHumidity()} %</Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
 
-              <AnimatedCircularProgress
-                size={200}
-                width={15}
-                fill={reactApp.prototype.getHumidity()}
-                tintColor="#00e0ff"
-                backgroundColor="#3d5875">
-                {(fill) => (
-                  <Text style={styles.title}>{reactApp.prototype.getHumidity()} %</Text>
-                )}
-              </AnimatedCircularProgress>
-            </Col>
-          </Row>
+        <View style={styles.gauge}>
+          <Text style={styles.title}>Gefühlt</Text>
+          
+          <AnimatedCircularProgress
+            size={250}
+            width={20}
+            fill={reactApp.prototype.getHeatindex()}
+            tintColor="#00e0ff"
+            backgroundColor="#343A40">
+            {(fill) => (
+              <Text style={styles.title}>{reactApp.prototype.getHeatindex()} °C</Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
 
-          <Row>
-            <Button variant="primary" onClick={this.synchronize}>SYNCRONICE</Button>
-          </Row>
-        </Container>
+
+
+
+      {/* <Button variant="primary" onClick={this.synchronize}>SYNCRONICE</Button> */}
+
       </View>
     );
   }
@@ -71,17 +84,24 @@ export class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "row",
+    flexWrap:"wrap",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
+    // marginLeft: "auto",
+    // marginRight: "auto",
+  },
+
+  gauge: {
+    backgroundColor: "#f0ffff",
+    padding: 25,
+    margin: 10,
   },
 
   title: {
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 12,
     paddingVertical: 10,
     alignItems: "center",
     color: "#20232a",
