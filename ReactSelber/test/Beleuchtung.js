@@ -20,6 +20,7 @@ export class Beleuchtung extends Component {
 
   setChecked(state){
     this.setState({checked:state});
+    reactApp.prototype.setLedState(state);
   }
 
   callColor = (color) => {

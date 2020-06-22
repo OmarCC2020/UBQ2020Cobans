@@ -56,12 +56,19 @@ export default class reactApp extends Component{
   }
 
   setLedColor(color){
-    console.log("from color picker: "+color);
-    client.publish("led1/color", color.toString(),{qos: 1});
+    //console.log("from color picker: "+color);
+    client.publish("led1/color", color.toString(),{qos: 1});    
   }
   
   setLedState(state){
     //TODO: led state topic hinzufugen 
+    console.log(state);
+    if(state==true){
+      client.publish("led1/state", "1",{qos: 1});    
+    }else{
+      client.publish("led1/state", "0",{qos: 1}); 
+    }
+    
   }
   
 
@@ -89,10 +96,12 @@ export default class reactApp extends Component{
           }
         });
 
-        //TODO: restlichen topics hinzufugen
+        
         client.subscribe("dht22/temperature" , function(err){if(err){console.log(err)}});
         client.subscribe("dht22/humidity" ,function(err){if(err){console.log(err)}});
         client.subscribe("dht22/heatindex" , function(err){if(err){console.log(err)}});
+
+        //TODO: bmp280 topics hinzufugen
        
       });
 
