@@ -23,14 +23,17 @@ export default class reactApp extends Component{
       data: 'Jordan Belfort',
       hum : 4224,
     };
+    //add global variables to this class
     GLOBAL.temperature=this;
     GLOBAL.humidity=this;
     GLOBAL.heatindex=this;
     GLOBAL.gauge=this;
+    GLOBAL.pressure=this;
 
     this.getHumidity=this.getHumidity.bind(this);
   }
 
+  //functions for returning the right data 
   getHumidity(){    
     if(GLOBAL.humidity.state.humidity!==undefined){
       return parseFloat(GLOBAL.humidity.state.humidity);
@@ -55,13 +58,35 @@ export default class reactApp extends Component{
     }
   }
 
-  setLedColor(color){
-    //console.log("from color picker: "+color);
-    client.publish("led1/color", color.toString(),{qos: 1});    
+  getPressure(){    
+    if(GLOBAL.pressure.state.pressure!==undefined){
+      return parseFloat(GLOBAL.pressure.state.pressure);
+    }else{
+      return 42;
+    }
+  }
+
+  //setting the led color
+  setLedColor(color){    
+    //transforms from hex to rgb color scheme
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    result = result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+    } : null;
+
+    //console.log(">>> "+color+" -> r:"+result.r+" g:"+result.g+" b:"+result.b);
+    //client.publish("led1/color", color.toString(),{qos: 1});
+
+    client.publish("led1/r", result.r.toString(),{qos: 1});
+    client.publish("led1/g", result.g.toString(),{qos: 1});
+    client.publish("led1/b", result.b.toString(),{qos: 1});
+
   }
   
-  setLedState(state){
-    //TODO: led state topic hinzufugen 
+  //turning the led on an off 
+  setLedState(state){  
     console.log(state);
     if(state==true){
       client.publish("led1/state", "1",{qos: 1});    
@@ -71,7 +96,7 @@ export default class reactApp extends Component{
     
   }
   
-
+  //runs once on start-> here all the mqtt-communications are handled 
   componentWillMount() {  
     client = mqtt.connect(mqttBrokerIP,{
       clientId: 'SmartCoban',
@@ -96,20 +121,20 @@ export default class reactApp extends Component{
           }
         });
 
-        
+        //subscribing to the topics
         client.subscribe("dht22/temperature" , function(err){if(err){console.log(err)}});
         client.subscribe("dht22/humidity" ,function(err){if(err){console.log(err)}});
         client.subscribe("dht22/heatindex" , function(err){if(err){console.log(err)}});
 
-        //TODO: bmp280 topics hinzufugen
+        client.subscribe("bmp280/pressure" , function(err){if(err){console.log(err)}});       
        
       });
 
-
-      //TODO: restliche topics switchen
+      //function gets called when a new message gets added to a topics
       client.on("message",function(topic,message){
         console.log(topic+": "+message.toString());
 
+        //switching the message, depending on topic
         switch(topic){
           case "dht22/temperature":
             GLOBAL.temperature.setState({temperature:message.toString()}); 
@@ -122,11 +147,11 @@ export default class reactApp extends Component{
           case "dht22/heatindex":
             GLOBAL.humidity.setState({heatindex:message.toString()}); 
             break;
+          case "bmp280/pressure":
+            GLOBAL.pressure.setState({pressure:message.toString()}); 
+            break;
         }
-
-      });
-      
-      
+      });            
   }
 
   componentDidMount(){

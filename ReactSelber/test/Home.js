@@ -13,8 +13,7 @@ export class Home extends Component {
     };
   }
 
-  synchronize = (state) => {
-    // TODO: mqtt verbindung
+  synchronize = (state) => {  
     console.log("get from mqtt");
     console.log(reactApp.prototype.getHumidity());
   };
@@ -69,8 +68,20 @@ export class Home extends Component {
           </AnimatedCircularProgress>
         </View>
 
-
-
+        <View style={styles.gauge}>
+          <Text style={styles.title}>Luftdruck</Text>
+          
+          <AnimatedCircularProgress
+            size={250}
+            width={20}
+            fill={reactApp.prototype.getPressure()}
+            tintColor="#00e0ff"
+            backgroundColor="#343A40">
+            {(fill) => (
+              <Text style={styles.title}>{reactApp.prototype.getPressure()} Pa</Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
 
       {/* <Button variant="primary" onClick={this.synchronize}>SYNCRONICE</Button> */}
 
@@ -80,7 +91,6 @@ export class Home extends Component {
 }
 
 //StyleSheet
-//TODO: sachen mit flexbox/bootstrap zentrieren und responsive machen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

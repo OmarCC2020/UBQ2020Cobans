@@ -23,8 +23,7 @@ export class Beleuchtung extends Component {
     reactApp.prototype.setLedState(state);
   }
 
-  callColor = (color) => {
-    // TODO: mqtt verbindung zur LED lampe color muss von hex auf RGB 
+  callColor = (color) => {    
     this.setState({ background: color.hex });
     //console.log("Selected Color" + {background: color.hex } )
     console.log(this.state.background);

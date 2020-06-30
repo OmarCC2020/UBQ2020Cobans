@@ -5,4 +5,5 @@ module.exports = {
     gauge: 0,
     ledState: 0,
     ledColor: 0,
+    pressure: 0,
 };
